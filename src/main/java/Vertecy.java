@@ -12,5 +12,5 @@ public class Vertecy {
         return new int[]{this.X,this.Y};
     }
 
-
+//tester
 }
