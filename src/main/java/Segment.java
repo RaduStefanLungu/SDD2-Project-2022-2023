@@ -14,4 +14,16 @@ public class Segment {
         return new int[] {this.X,this.Y,this.Z};
     }
 
+    public int getX(){
+        return X;
+    }
+
+    public int getY(){
+        return Y;
+    }
+
+    public int getZ(){
+        return Z;
+    }
+
 }
