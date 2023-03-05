@@ -2,28 +2,28 @@ import java.awt.*;
 
 public class Segment {
 
-    private int X,Y,Z;
+    private int dif1,dif2,cons;
 
     public Segment(int x, int y, int z){
-        X = x;
-        Y = y;
-        Z = z;
+        dif1 = x;
+        dif2 = y;
+        cons = z;
     }
 
     public int[] getCoord(){
-        return new int[] {this.X,this.Y,this.Z};
+        return new int[] {this.dif1,this.dif2,this.cons};
     }
 
-    public int getX(){
-        return X;
+    public int getDif1(){
+        return dif1;
     }
 
-    public int getY(){
-        return Y;
+    public int getDif2(){
+        return dif2;
     }
 
-    public int getZ(){
-        return Z;
+    public int getCons(){
+        return cons;
     }
 
 }
