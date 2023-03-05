@@ -1,0 +1,6 @@
+
+
+1. (code) Algo tri (tri rapide).                                            DONE
+2. (code) Creation d'arbres + tas.                                          ON GOING...
+3. JavaFX.                                                                  ON GOING...
+4. Parcourir les arbres et afficher les segments du window choisit.         NOT YET IMPLEMENTED.
