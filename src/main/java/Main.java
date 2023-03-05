@@ -36,6 +36,8 @@ public class Main {
         }
         QuickSort(ver, 0, ver.size());
         QuickSort(hor, 0, hor.size());
+        PriorityTree verTree = TreeCreate(ver);
+        PriorityTree horTree = TreeCreate(hor);
     }
 
     public static void QuickSort(ArrayList<Segment> list, int start, int end){
@@ -61,17 +63,50 @@ public class Main {
         list.set(end-1, temp);
         return j;
     }
-    /*
-        public static Segment[] CreateTree(ArrayList<Segment> list){
-        double l = Math.log(list.size())/Math.log(2);
-        l= Math.ceil(l);
-        l = Math.pow(2, l);
-        Segment[] tree = new Segment[(int)l];
-        FillInTree(list, tree, 0);
-    }
 
-    public static void FillInTree(ArrayList<Segment> list, Segment[] tree, int index){
-
+    public static Segment FindMin(ArrayList<Segment> list){
+        Segment min = list.get(0);
+        for (int i=1; i<list.size(); i++){
+            if(list.get(i).getDif1()<min.getDif1()) {
+                min = list.get(i);
+            }
+        }
+        return min;
     }
-    */
+    
+    public static PriorityTree TreeCreate(ArrayList<Segment> list){
+        Segment min = FindMin(list);
+        list.remove(list.indexOf(min));
+        if (list.size()>1){
+            int half = (int)list.size()/2;
+            ArrayList<Segment> seg1 = new ArrayList<Segment>();
+            for (int i=0; i<half; i++){
+                seg1.add(list.get(i));
+            }
+            ArrayList<Segment> seg2 = new ArrayList<Segment>();
+            for (int i=half; i<list.size(); i++){
+                seg2.add(list.get(i));
+            }
+            PriorityTree tree = new PriorityTree(min, TreeCreate(seg1), TreeCreate(seg2));
+            return tree;
+        }
+        else{
+            if (list.size()==1){
+                int half = (int)list.size()/2;
+                ArrayList<Segment> seg1 = new ArrayList<Segment>();
+                for (int i=0; i<half; i++){
+                    seg1.add(list.get(i));
+                }
+                PriorityTree tree = new PriorityTree(min, TreeCreate(seg1), 0);
+                return tree;
+            }
+            else{
+                if (list.size()==0){
+                    PriorityTree tree = new PriorityTree(min, 0, 0);
+                    return tree;
+                }
+            }
+        }
+        return null;
+    }
 }
