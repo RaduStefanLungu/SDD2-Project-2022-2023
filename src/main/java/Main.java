@@ -10,7 +10,10 @@ public class Main {
 
     private static int low, up, left, rigth;
 
-    public static void main(String[] args) throws Exception
+    // NOTE : POUR RUN CE MAIN-CI, FAIT UN <GRADLE RUN> (vu que le main de base est le MainFX
+    // ce main-ci sera appelle a la fin du MainFX)
+
+    public static void main() throws Exception
     {
         File file = new File("ressources/1000.txt");
         Scanner scanner = new Scanner(file);

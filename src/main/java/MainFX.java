@@ -27,5 +27,12 @@ public class MainFX extends Application {
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+        try {
+            Main.main();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
