@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,19 +19,22 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
+//      ==FRONT-END==
         Parent parent = FXMLLoader.load(getClass().getResource("Page_Main.fxml"));
         Scene scene = new Scene(parent,WIDTH,HEIGHT);
 
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(scene);
         primaryStage.show();
+//      =============
 
-
+//       ==BACK-END==
         try {
-            Main.main();
+            BackEnd be = new BackEnd();
+            be.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
+//      =============
     }
 }

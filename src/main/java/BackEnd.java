@@ -4,16 +4,16 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.Math;
 
-public class Main {
-    private static ArrayList<Segment> ver = new ArrayList<Segment>();
-    private static ArrayList<Segment> hor = new ArrayList<Segment>();
+public class BackEnd {
+    private ArrayList<Segment> ver = new ArrayList<Segment>();
+    private ArrayList<Segment> hor = new ArrayList<Segment>();
 
-    private static int low, up, left, rigth;
+    private int low, up, left, rigth;
 
     // NOTE : POUR RUN CE MAIN-CI, FAIT UN <GRADLE RUN> (vu que le main de base est le MainFX
     // ce main-ci sera appelle a la fin du MainFX)
 
-    public static void main() throws Exception
+    public void run() throws Exception
     {
         File file = new File("ressources/1000.txt");
         Scanner scanner = new Scanner(file);
@@ -43,7 +43,7 @@ public class Main {
         PriorityTree horTree = TreeCreate(hor);
     }
 
-    public static void QuickSort(ArrayList<Segment> list, int start, int end){
+    public void QuickSort(ArrayList<Segment> list, int start, int end){
          if (start<end){
             int j = Partition(list, start, end);
             QuickSort(list, start, j-1);
@@ -51,7 +51,7 @@ public class Main {
          }
     }
 
-    public static int Partition(ArrayList<Segment> list, int start, int end){
+    public int Partition(ArrayList<Segment> list, int start, int end){
         int j = start;
         for (int i = start; i < end-1; i++){
             if (list.get(i).getCons() <= list.get(end-1).getCons()){
@@ -67,7 +67,7 @@ public class Main {
         return j;
     }
 
-    public static Segment FindMin(ArrayList<Segment> list){
+    public Segment FindMin(ArrayList<Segment> list){
         Segment min = list.get(0);
         for (int i=1; i<list.size(); i++){
             if(list.get(i).getDif1()<min.getDif1()) {
@@ -77,7 +77,7 @@ public class Main {
         return min;
     }
     
-    public static PriorityTree TreeCreate(ArrayList<Segment> list){
+    public PriorityTree TreeCreate(ArrayList<Segment> list){
         Segment min = FindMin(list);
         list.remove(list.indexOf(min));
         if (list.size()>1){
