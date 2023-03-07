@@ -13,6 +13,10 @@ public class BackEnd {
     // NOTE : POUR RUN CE MAIN-CI, FAIT UN <GRADLE RUN> (vu que le main de base est le MainFX
     // ce main-ci sera appelle a la fin du MainFX)
 
+    /**
+     * Function starting calculations and everything the back-end does.
+     * @throws Exception
+     */
     public void run() throws Exception
     {
         File file = new File("ressources/1000.txt");
