@@ -86,6 +86,7 @@ public class BackEnd {
         list.remove(list.indexOf(min));
         if (list.size()>1){
             int half = (int)list.size()/2;
+            int mid = list.get(half).getCons();
             ArrayList<Segment> seg1 = new ArrayList<Segment>();
             for (int i=0; i<half; i++){
                 seg1.add(list.get(i));
@@ -94,26 +95,41 @@ public class BackEnd {
             for (int i=half; i<list.size(); i++){
                 seg2.add(list.get(i));
             }
-            PriorityTree tree = new PriorityTree(min, TreeCreate(seg1), TreeCreate(seg2));
+            PriorityTree tree = new PriorityTree(min, mid, TreeCreate(seg1), TreeCreate(seg2));
             return tree;
         }
         else{
             if (list.size()==1){
-                int half = (int)list.size()/2;
+                int mid = list.get(0).getCons();
                 ArrayList<Segment> seg1 = new ArrayList<Segment>();
-                for (int i=0; i<half; i++){
-                    seg1.add(list.get(i));
-                }
-                PriorityTree tree = new PriorityTree(min, TreeCreate(seg1), 0);
+                seg1.add(list.get(0));
+                PriorityTree tree = new PriorityTree(min, mid, TreeCreate(seg1));
                 return tree;
             }
             else{
                 if (list.size()==0){
-                    PriorityTree tree = new PriorityTree(min, 0, 0);
+                    PriorityTree tree = new PriorityTree(min);
                     return tree;
                 }
             }
         }
         return null;
     }
+    /*
+    ArrayList<Segment> answer = new ArrayList<Segment>();
+
+    public void QueryAnswer(PriorityTree tree, int dif1, int dif2, int cons1, int cons2){
+        if(tree.getRoot().getDif1()>=dif1 && tree.getRoot().getDif2()<=dif2 && tree.getRoot().getCons()>=cons1 && tree.getRoot().getCons()<=cons2){
+            answer.add(tree.getRoot());
+        }
+        if(tree.getRoot().getDif2()>=cons1 && tree.getType()!=2){
+            if(tree.getMid()>=cons1){
+                QueryAnswer(tree.getLeft(), dif1, dif2, cons1, cons2);
+            }
+            if(tree.getMid()<=cons2 && tree.getType()!=1){
+                QueryAnswer(tree.getRigth(), dif1, dif2, cons1, cons2);
+            }
+        }
+    }
+    */
 }
