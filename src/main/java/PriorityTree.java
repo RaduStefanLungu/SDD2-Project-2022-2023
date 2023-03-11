@@ -28,6 +28,8 @@ public class PriorityTree {
         type = 2;
     }
 
+    public PriorityTree(){}
+
     public Segment getRoot(){
         return root;
     }
