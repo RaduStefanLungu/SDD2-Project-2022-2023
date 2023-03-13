@@ -11,18 +11,52 @@
          <children>
             <VBox layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="260.0">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                  <VBox alignment="CENTER">
                      <children>
-                        <Label text="Window - W" />
-                        <TextField />
+                        <HBox alignment="CENTER" prefHeight="25.0" prefWidth="300.0">
+                           <children>
+                              <Label text="Window" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                                 <children>
+                                    <Label text="H" />
+                                    <TextField prefHeight="25.0" prefWidth="50.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                                 <children>
+                                    <Label text="W" />
+                                    <TextField prefHeight="25.0" prefWidth="50.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
                      <children>
-                        <Label text="Window - H" />
-                        <TextField />
+                        <Label text="Grid Location" />
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                                 <children>
+                                    <Label text="X" />
+                                    <TextField prefHeight="25.0" prefWidth="50.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                                 <children>
+                                    <Label text="Y" />
+                                    <TextField prefHeight="25.0" prefWidth="50.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
                   <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
                      <children>
                         <Label text="Customisable 1" />
