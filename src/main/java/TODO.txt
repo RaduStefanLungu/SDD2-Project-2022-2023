@@ -7,4 +7,9 @@
     -> Grid location (x,y) = location of the top-left corner of the window
         --> The user will see inside his window the segments found on :
                 [x+W,y-H]       -> on 'y' there is subtraction because we're looking from the top-left corner !
+
+    => Le fx doit juste appeller TreeCreate et Query.
+        => apres il faut getAnswear.
+    => oublie pas d'ecrire les valeurs x1,x2 + y1,y2 (laisser le choix a l'user) ++ pouvoir entrer des valeur de type (+-infinit)
+
 4. Parcourir les arbres et afficher les segments du window choisit.         NOT YET IMPLEMENTED.
