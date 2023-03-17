@@ -9,66 +9,104 @@
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <VBox layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="260.0">
+            <VBox fx:id="ConfigPanel" layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="260.0" spacing="10.0">
                <children>
-                  <VBox alignment="CENTER">
+                  <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="260.0" spacing="5.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="25.0" prefWidth="300.0">
+                        <CheckBox fx:id="CBDefaultInput" mnemonicParsing="false" onAction="#CheckboxDefaultInputHandler" text="Default Input" />
+                        <CheckBox fx:id="CBCustomisedInput" mnemonicParsing="false" onAction="#CheckboxCustomisedInputHandler" text="Customised Input" />
+                     </children></VBox>
+                  <VBox fx:id="ConfigPanelVHolder" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <VBox fx:id="DefaultInputPanel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                            <children>
-                              <Label text="Window" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                           <children>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                              <Label text="Window Data" />
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Label text="H" />
-                                    <TextField prefHeight="25.0" prefWidth="50.0" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                                       <children>
+                                          <Label text="x1" />
+                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                                       <children>
+                                          <Label text="y1" />
+                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="32.0" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Label text="W" />
-                                    <TextField prefHeight="25.0" prefWidth="50.0" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                                       <children>
+                                          <Label text="x2" />
+                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                                       <children>
+                                          <Label text="y2" />
+                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
+                        <VBox fx:id="CustomisedInputPanel" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="25.0" prefWidth="300.0">
+                                       <children>
+                                          <Label text="Window Size" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                                             <children>
+                                                <Label text="H" />
+                                                <TextField prefHeight="25.0" prefWidth="50.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                                             <children>
+                                                <Label text="W" />
+                                                <TextField prefHeight="25.0" prefWidth="50.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label text="World Location" />
+                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
+                                             <children>
+                                                <Label text="X" />
+                                                <TextField prefHeight="25.0" prefWidth="50.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                                             <children>
+                                                <Label text="Y" />
+                                                <TextField prefHeight="25.0" prefWidth="50.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
-                     <children>
-                        <Label text="Grid Location" />
-                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                           <children>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
-                                 <children>
-                                    <Label text="X" />
-                                    <TextField prefHeight="25.0" prefWidth="50.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
-                                 <children>
-                                    <Label text="Y" />
-                                    <TextField prefHeight="25.0" prefWidth="50.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
-                     <children>
-                        <Label text="Customisable 1" />
-                        <TextField />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="60.0" prefHeight="50.0" spacing="25.0">
-                     <children>
-                        <Label text="Customisable 2" />
-                        <TextField />
-                     </children>
-                  </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="223.0" prefHeight="50.0">
                      <children>
                         <Button fx:id="ApplyButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ApplyButtonHandler" text="Apply">
