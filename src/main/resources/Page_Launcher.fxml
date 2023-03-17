@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.stage.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="PageLauncher"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<Stage fx:id="MainStage" height="250.0" resizable="false" title="SDD2-Project-22/23" width="500.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <scene>
+        <Scene>
+            <VBox id="PLMainHolder" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+                <children>
+                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <children>
+                            <Label text="Welcome">
+                                <font>
+                                    <Font name="Bell MT Bold" size="30.0" />
+                                </font>
+                            </Label>
+                            <Label text="SDD2 - Project">
+                                <font>
+                                    <Font name="Bell MT" size="25.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </VBox>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                        <children>
+                            <Label text="Data file path: " />
+                            <TextField fx:id="TFFilePath" />
+                            <Button fx:id="BChose" mnemonicParsing="false" onAction="#ChoseFile" text="..." />
+                        </children>
+                    </HBox>
+                    <Button fx:id="BLaunch" mnemonicParsing="false" onAction="#LaunchHandler" text="Launch" />
+                </children>
+                <padding>
+                    <Insets bottom="10.0" top="15.0" />
+                </padding>
+            </VBox>
+        </Scene>
+    </scene>
+</Stage>
