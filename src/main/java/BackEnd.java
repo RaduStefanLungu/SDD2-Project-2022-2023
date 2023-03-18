@@ -92,7 +92,7 @@ public class BackEnd {
      * Lis et initialise les bornes maximales et trie les segments en deux tableaux
      * @param file fichier texte avec les bornes maximales et les segments verticaux et horizontaux
      */
-    private void Read(File file){
+    public void Read(File file){
         Scanner scanner;
         try {
             scanner = new Scanner(file);
@@ -108,12 +108,24 @@ public class BackEnd {
                 int z = (int) Float.parseFloat(line[2]);
                 if (x == z){
                     z = (int) Float.parseFloat(line[3]);
-                    Segment seg = new Segment(y, z, x);
-                    ver.add(seg);
+                    if (y<=z){
+                        Segment seg = new Segment(y, z, x);
+                        ver.add(seg);
+                    }
+                    else {
+                        Segment seg = new Segment(z, y, x);
+                        ver.add(seg);
+                    }
                 }
                 else{
-                    Segment seg = new Segment(x, z, y);
-                    hor.add(seg);
+                    if (x<=z){
+                        Segment seg = new Segment(x, z, y);
+                        hor.add(seg);
+                    }
+                    else {
+                        Segment seg = new Segment(z, x, y);
+                        hor.add(seg);
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
