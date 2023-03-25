@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.lang.Math;
 
 public class BackEnd {
 
@@ -42,38 +41,6 @@ public class BackEnd {
      * @throws Exception
      */
 
-    /*
-    public void run() throws Exception
-    {
-        File file = new File("ressources/1000.txt");
-        Scanner scanner = new Scanner(file);
-        String[] first = scanner.nextLine().split(" ");
-        low = (int) Float.parseFloat(first[0]);
-        up = (int) Float.parseFloat(first[1]);
-        left = (int) Float.parseFloat(first[2]);
-        rigth = (int) Float.parseFloat(first[3]);
-        while (scanner.hasNextLine()){
-            String[] line = scanner.nextLine().split(" ");
-            int x = (int) Float.parseFloat(line[0]);
-            int y = (int) Float.parseFloat(line[1]);
-            int z = (int) Float.parseFloat(line[2]);
-            if (x == z){
-                z = (int) Float.parseFloat(line[3]);
-                Segment seg = new Segment(y, z, x);
-                ver.add(seg);
-            }
-            else{
-                Segment seg = new Segment(x, z, y);
-                hor.add(seg);
-            }
-        }
-        QuickSort(ver, 0, ver.size());
-        QuickSort(hor, 0, hor.size());
-        PriorityTree verTree = TreeCreate(ver);
-        PriorityTree horTree = TreeCreate(hor);
-    }
-    */
-
     /**
      * Fonction principale pour l'initialisation des arbres de priorité
      * @param file fichier texte avec les bornes maximales et les segments verticaux et horizontaux
@@ -89,7 +56,7 @@ public class BackEnd {
     }
 
     /**
-     * Lis et initialise les bornes maximales et trie les segments en deux tableaux
+     * Lit et initialise les bornes maximales et trie les segments en deux tableaux
      * @param file fichier texte avec les bornes maximales et les segments verticaux et horizontaux
      */
     public void Read(File file){

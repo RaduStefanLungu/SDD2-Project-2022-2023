@@ -31,34 +31,51 @@ public class TestBackEnd {
         be.Read("resources/10.txt");
         be.getVer().QuickSort();
         be.getHor().QuickSort();
-        int[3] verTest;
-        int[4] HorTest;
+        int[] verTest = new int[3];
+        int[] horTest = new int[4];
         for(int i=0; i<3; i++){
-            verTest.add(be.getVer().get(i).getCons())
+            verTest.add(be.getVer().get(i).getCons());
         }
         for(int i=0; i<4; i++){
-            horTest.add(be.getHor().get(i).getCons())
+            horTest.add(be.getHor().get(i).getCons());
         }
-        assertEquals([0, 3, 9], verTest);
-        assertEquals([-6, -1, 1, 4], horTest);
+        assertEquals(0, verTest[0]);
+        assertEquals(3, verTest[1]);
+        assertEquals(9, verTest[2]);
+        assertEquals(-6, horTest[0]);
+        assertEquals(-1, horTest[1]);
+        assertEquals(1, horTest[2]);
+        assertEquals(4, horTest[3]);
     }
 
     /**
-     * Teste si Tree() construit les bons arbres de priorités
+     * Teste la fonction TreeCreate() qui construit les deux arbres de priorité
+     * et teste si Tree() construit les bons arbres de priorité
      */
+    @Test
     void testTree(){
         BackEnd be = new BackEnd();
-        be.Read("resources/10.txt");
-        be.getVer().QuickSort();
-        be.getHor().QuickSort();
-        be.getVerTree() = be.Tree(be.getVer());
-        be.getHorTree() = be.Tree(be.getHor());
-        assertEquals(-9, be.getVerTree().getRoot());
-        assertEquals(-8, be.getVerTree().getLeft().getRoot());
-        assertEquals(0, be.getVerTree().getRight().getRoot());
-        assertEquals(-9, be.getHorTree().getRoot());
-        assertEquals(1, be.getHorTree().getLeft().getRoot());
-        assertEquals(5, be.getHorTree().getLeft().getLeft().getRoot());
-        assertEquals(-2, be.getHorTree().getRight().getRoot());
+        be.TreeCreate("resources/10.txt");
+        assertEquals(-9, be.getVerTree().getRoot().getDif1());
+        assertEquals(-8, be.getVerTree().getLeft().getRoot().getDif1());
+        assertEquals(0, be.getVerTree().getRight().getRoot().getDif1());
+        assertEquals(-9, be.getHorTree().getRoot().getDif1());
+        assertEquals(1, be.getHorTree().getLeft().getRoot().getDif1());
+        assertEquals(5, be.getHorTree().getLeft().getLeft().getRoot().getDif1());
+        assertEquals(-2, be.getHorTree().getRight().getRoot().getDif1());
+    }
+
+    /**
+     * Teste les fonctions Query() et QueryAnswer() qui répondent aux demandes de windowing
+     */
+    @Test
+    void testQuery(){
+        BackEnd be = new BackEnd();
+        be.TreeCreate("resources/10.txt");
+        be.Query(-4, 4, -4, 4);
+        assertEquals(-9, be.getAnswer().get(0).getDif1());
+        assertEquals(-8, be.getAnswer().get(1).getDif1());
+        assertEquals(-9, be.getAnswer().get(2).getDif1());
+        assertEquals(-2, be.getAnswer().get(3).getDif1());
     }
 }
