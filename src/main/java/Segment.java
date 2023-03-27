@@ -54,4 +54,14 @@ public class Segment {
     public boolean isHorizontal(){
         return this.isHorizontal;
     }
+
+    @Override
+    public String toString() {
+        if(this.isHorizontal){
+            return "("+dif1+","+cons+")"+"-->("+dif2+cons+")";
+        }
+        else{
+            return "("+cons+","+dif1+")"+"-->("+cons+dif2+")";
+        }
+    }
 }

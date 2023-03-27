@@ -33,10 +33,10 @@ public class BackEnd {
    */
     private int low, up, left, rigth;
 
-    /**
-     * Function starting calculations and everything the back-end does.
-     * @throws Exception
-     */
+    public BackEnd(File file){
+        TreeCreate(file);
+        System.out.println("~ BackEnd has been successfully set.");
+    }
 
     /**
      * Fonction principale pour l'initialisation des arbres de priorité
@@ -56,7 +56,7 @@ public class BackEnd {
      * Lit et initialise les bornes maximales et trie les segments en deux tableaux
      * @param file fichier texte avec les bornes maximales et les segments verticaux et horizontaux
      */
-    public void Read(File file){
+    private void Read(File file){
         Scanner scanner;
         try {
             scanner = new Scanner(file);
@@ -209,7 +209,7 @@ public class BackEnd {
      * @param cons1 borne basse pour les segments horizontaux et gauche pour les segments verticaux
      * @param cons2 borne haute pour les segments horizontaux et droite pour les segments verticaux
      */
-    public void QueryAnswer(PriorityTree tree, int dif1, int dif2, int cons1, int cons2){
+    private void QueryAnswer(PriorityTree tree, int dif1, int dif2, int cons1, int cons2){
         if (tree.getRoot().getDif1()<=dif2){
             if(tree.getRoot().getDif2()>=dif1 && tree.getRoot().getCons()>=cons1 && tree.getRoot().getCons()<=cons2){
                 answer.add(tree.getRoot());

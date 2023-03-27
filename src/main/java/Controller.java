@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,37 +24,26 @@ public class Controller {
     Stage MainStage;
 
     @FXML
-    Button BChose;
-    @FXML
-    Button ApplyButton;
+    Button BChose,ApplyButton;
 
     @FXML
     TextField TFFilePath,WindowDataX1,WindowDataX2,WindowDataY1,WindowDataY2;
 
     @FXML
-    CheckBox CBDefaultInput;
-    @FXML
-    CheckBox CBCustomisedInput;
-
+    CheckBox CBDefaultInput,CBCustomisedInput;
 
     @FXML
-    VBox ConfigPanel;
-    @FXML
-    VBox ConfigPanelVHolder;
-    @FXML
-    VBox DefaultInputPanel;
-    @FXML
-    VBox CustomisedInputPanel;
+    VBox ConfigPanel,ConfigPanelVHolder,DefaultInputPanel,CustomisedInputPanel;
 
     @FXML
     Group GroupDrawing;
 
 
     @FXML
-    public void LaunchHandler() throws IOException {
-        // Send data to back-end
+    public void LaunchHandler() throws IOException  {
+        // Set the back-end
         try{
-            MainFX.BACKEND.TreeCreate(new File(TFFilePath.getText()));
+            MainFX.BACKEND = new BackEnd(new File(TFFilePath.getText()));
         }catch (Exception e){
             System.out.println(e);
         }
@@ -62,12 +52,15 @@ public class Controller {
         Parent parent = FXMLLoader.load(getClass().getResource("Page_Main.fxml"));
         Scene scene = new Scene(parent,MainFX.WIDTH,MainFX.HEIGHT);
 
+        MainStage.setTitle(MainFX.TITLE);
         MainStage.setWidth(MainFX.WIDTH);
         MainStage.setHeight(MainFX.HEIGHT);
         MainStage.setScene(scene);
         MainStage.show();
 
+    }
 
+    private void customizePageMain(){
 
     }
 
@@ -90,11 +83,12 @@ public class Controller {
         //code here...
         // get data from TextFileds and send it to the Back-End to change the window propreties.
 
-        int x1 = Integer.getInteger(WindowDataX1.getText());
-        int y1 = Integer.getInteger(WindowDataY1.getText());
+        int x1 = Integer.parseInt(WindowDataX1.getText());
+        int y1 = Integer.parseInt(WindowDataY1.getText());
 
-        int x2 = Integer.getInteger(WindowDataX2.getText());
-        int y2 = Integer.getInteger(WindowDataY1.getText());
+        int x2 = Integer.parseInt(WindowDataX2.getText());
+        int y2 = Integer.parseInt(WindowDataY1.getText());
+
 
 
         // Call Query from BackEnd
@@ -102,17 +96,32 @@ public class Controller {
 
         //Apply to Front-End
         ArrayList<Segment> arrayList = MainFX.BACKEND.getAnswer();
+
+        System.out.println(arrayList);
+
         for(int i = 0 ; i<arrayList.size();i++){
             Segment seg = arrayList.get(i);
 
-
-
             Line line = new Line();
-            line.setStartX(0);
-            line.setStartY(0);
+            line.setFill(Color.color(Math.random(),Math.random(),Math.random()));
 
-            line.setEndX(0);
-            line.setEndY(0);
+            // customize the line as a vertical/horizontal line
+            if(seg.isHorizontal()) {
+                line.setStartX(seg.getDif1());
+                line.setStartY(seg.getCons());
+
+                line.setEndX(seg.getDif2());
+                line.setEndY(seg.getCons());
+            }
+            else{
+                line.setStartX(seg.getCons());
+                line.setStartY(seg.getDif1());
+
+                line.setEndX(seg.getCons());
+                line.setEndY(seg.getDif2());
+            }
+
+            GroupDrawing.getChildren().add(line);
         }
 
     }

@@ -12,20 +12,10 @@ public class MainFX extends Application {
 
     public static int WIDTH = 1280;
     public static int HEIGHT = 720;
-    private static final String TITLE = "SDD2-Project-22/23";
-    protected static final BackEnd BACKEND = new BackEnd();
+    protected static final String TITLE = "SDD2-Project-22/23";
+    protected static BackEnd BACKEND;
 
     public static void main(String[] args) {
-//       ==BACK-END==
-        System.out.println("STARTING THE BACKEND HERE");
-        //TODO Activate this
-//        try {
-//            BackEnd be = new BackEnd();
-//            be.run();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//      ============
 
 //      ==FRONT-END==
         launch(args);
@@ -37,6 +27,7 @@ public class MainFX extends Application {
 //      ==FRONT-END==
 
         Stage stage = FXMLLoader.load(getClass().getResource("Page_Launcher.fxml"));
+        stage.setTitle(TITLE);
         stage.show();
 //      =============
 
