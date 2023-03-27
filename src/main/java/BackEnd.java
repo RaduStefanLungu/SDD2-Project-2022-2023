@@ -33,9 +33,6 @@ public class BackEnd {
    */
     private int low, up, left, rigth;
 
-    // NOTE : POUR RUN CE MAIN-CI, FAIT UN <GRADLE RUN> (vu que le main de base est le MainFX
-    // ce main-ci sera appelle a la fin du MainFX)
-
     /**
      * Function starting calculations and everything the back-end does.
      * @throws Exception
@@ -76,21 +73,21 @@ public class BackEnd {
                 if (x == z){
                     z = (int) Float.parseFloat(line[3]);
                     if (y<=z){
-                        Segment seg = new Segment(y, z, x);
+                        Segment seg = new Segment(y, z, x,false);
                         ver.add(seg);
                     }
                     else {
-                        Segment seg = new Segment(z, y, x);
+                        Segment seg = new Segment(z, y, x,false);
                         ver.add(seg);
                     }
                 }
                 else{
                     if (x<=z){
-                        Segment seg = new Segment(x, z, y);
+                        Segment seg = new Segment(x, z, y,true);
                         hor.add(seg);
                     }
                     else {
-                        Segment seg = new Segment(z, x, y);
+                        Segment seg = new Segment(z, x, y,true);
                         hor.add(seg);
                     }
                 }
@@ -126,13 +123,13 @@ public class BackEnd {
         int j = start;
         for (int i = start; i < end-1; i++){
             if (list.get(i).getCons() <= list.get(end-1).getCons()){
-                Segment temp = new Segment(list.get(j).getDif1(), list.get(j).getDif2(), list.get(j).getCons());
+                Segment temp = new Segment(list.get(j).getDif1(), list.get(j).getDif2(), list.get(j).getCons(),list.get(j).isHorizontal());
                 list.set(j, list.get(i));
                 list.set(i, temp);
                 j++;
             }
         }
-        Segment temp = new Segment(list.get(j).getDif1(), list.get(j).getDif2(), list.get(j).getCons());
+        Segment temp = new Segment(list.get(j).getDif1(), list.get(j).getDif2(), list.get(j).getCons(),list.get(j).isHorizontal());
         list.set(j, list.get(end-1));
         list.set(end-1, temp);
         return j;

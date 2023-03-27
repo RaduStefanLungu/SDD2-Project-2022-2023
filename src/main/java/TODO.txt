@@ -1,7 +1,7 @@
 
 
 1. (code) Algo tri (tri rapide).                                            DONE
-2. (code) Creation d'arbres + tas.                                          ON GOING...
+2. (code) Creation d'arbres + tas.                                          DONE
 3. JavaFX.                                                                  ON GOING...
     -> Window (H x W) = window size
     -> Grid location (x,y) = location of the top-left corner of the window
