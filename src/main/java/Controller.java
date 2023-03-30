@@ -49,12 +49,13 @@ public class Controller {
         // Set the back-end
         try{
             MainFX.BACKEND = new BackEnd(new File(TFFilePath.getText()));
+            MainFX.WINDOW = new Window();
         }catch (Exception e){
             System.out.println(e);
         }
 
         // Set the front-end
-        Parent parent = FXMLLoader.load(getClass().getResource("Page_Main.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("Page_Main2.fxml"));
         Scene scene = new Scene(parent,MainFX.WIDTH,MainFX.HEIGHT);
 
         MainStage.setTitle(MainFX.TITLE);

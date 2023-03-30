@@ -14,6 +14,7 @@ public class MainFX extends Application {
     public static int HEIGHT = 720;
     protected static final String TITLE = "SDD2-Project-22/23";
     protected static BackEnd BACKEND;
+    protected static Window WINDOW;
 
     public static void main(String[] args) {
 
