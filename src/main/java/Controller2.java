@@ -20,21 +20,25 @@ public class Controller2 {
     @FXML
     public void applyHandler(){
        //set up the window:
-        if(!MainFX.WINDOW.setupVisualWindow(AnchorPanePlayground)){
-            MainFX.WINDOW.updateVisual();
-        }
+        MainFX.WINDOW.setupVisualWindow(AnchorPanePlayground);
 
         // change the (x,y) inside the graph and update the segments.
         try{
-            MainFX.WINDOW.setDx(Integer.parseInt(GraphX.getText()));
-            MainFX.WINDOW.setDy(Integer.parseInt(GraphY.getText()));
+
+            var x = Integer.parseInt(GraphX.getText());
+            var y = Integer.parseInt(GraphY.getText());
+            var w = Integer.parseInt(WindowW.getText());
+            var h = Integer.parseInt(WindowH.getText());
+
+            MainFX.WINDOW.updateValues(w,h,x,y);
+
         }catch (NumberFormatException e){
             GraphX.promptTextProperty().set("Wrong input");
             GraphX.requestFocus();
             GraphY.promptTextProperty().set("Wrong input");
 //            e.printStackTrace();
         }
-        MainFX.WINDOW.show();
+        MainFX.WINDOW.updateVisual();
 
     }
 

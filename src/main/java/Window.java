@@ -19,13 +19,15 @@ public class Window {
     private int gx,gy;
 
     private Pane fxBody;
+    private ArrayList<Line> fxBodyBorders;
 
     private AnchorPane parent;
 
     public Window(){
-        this.width = 1250;
+        this.width = 250;
         this.height = 250;
         this.fxBody = new Pane();
+        this.fxBodyBorders = createWindowBorders(Color.BLACK,this.width,this.height);
         this.gx = 0;
         this.gy = 0;
     }
@@ -33,33 +35,67 @@ public class Window {
     public boolean setupVisualWindow(AnchorPane parent){
         //check if this already exists inside the given parent
         if(parent.getChildren().contains(this.fxBody)){
+            //TODO change here, the problem is :
+            // 1. what if the parent already contains this but with default values ?
+            // 2. what if the parent already contains this but has new values input ?
+            setResolution();
+            updateVisual();
             return false;
         }
         else{
             parent.getChildren().add(this.fxBody);
             this.parent = parent;
             //visual customisation
+            setResolution();
+            //add segments from the back-end to the front-end
             updateVisual();
-
-
-
+            return true;
         }
-
-        return true;
     }
 
-    public void updateVisual(){
-        System.out.println("Updating visuals");
+    private void setResolution(){
         this.fxBody.prefHeight(this.height);
         this.fxBody.prefWidth(this.width);
         this.fxBody.setLayoutX(this.parent.getWidth()/2 - (this.width/2) );
         this.fxBody.setLayoutY(this.parent.getHeight()/2 - (this.height/2) );
-
-        this.fxBody.getChildren().addAll(createWindowBorders(Color.BLACK,this.width,this.height));
+        this.fxBody.getChildren().addAll(fxBodyBorders);
     }
 
-    public void show(){
+    public void updateVisual(){
+        // update segments from back-end
+        System.out.println("Updating visuals");
 
+
+    }
+
+    public void updateValues(int w, int h,int x, int y){
+        boolean changedWH = false;
+        boolean changedXY = false;
+        if(w != this.width){
+            this.width = w;
+            changedWH = true;
+        }
+        if(h != this.height){
+            this.height = h;
+            changedWH = true;
+        }
+        if(x != this.gx){
+            this.gx = x;
+            changedXY = true;
+        }
+        if(y != this.gy){
+            this.gy = y;
+            changedXY = true;
+        }
+
+        if(changedWH){
+            this.fxBodyBorders.clear();
+            this.fxBodyBorders = createWindowBorders(Color.BLACK,this.width,this.height);
+            setResolution();
+        }
+        if(changedXY){
+            updateVisual();
+        }
     }
 
     private ArrayList<Line> createWindowBorders(Color color, int w, int h){
