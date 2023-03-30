@@ -8,7 +8,11 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Group fx:id="GroupDrawing" layoutX="350.0" layoutY="350.0" scaleX="600.0" scaleY="600.0" />
+            <Pane fx:id="PaneDrawing" layoutX="98.0" layoutY="99.0" prefHeight="500.0" prefWidth="500.0">
+               <children>
+                  <Group fx:id="GroupDrawing" layoutX="250.0" layoutY="250.0" />
+               </children>
+            </Pane>
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
@@ -55,10 +59,10 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
                      <children>
-                        <Label text="Customisable 1" />
-                        <TextField />
+                        <Button fx:id="LeftMoveButton" mnemonicParsing="false" onAction="#LeftMoveButtonHandler" prefWidth="50.0" text="left" />
+                        <Button fx:id="RightMoveButton" layoutX="236.0" layoutY="13.0" mnemonicParsing="false" onAction="#RightMoveButtonHandler" prefWidth="50.0" text="right" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="60.0" prefHeight="50.0" spacing="25.0">

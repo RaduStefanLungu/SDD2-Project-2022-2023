@@ -29,9 +29,10 @@ public class BackEnd {
     PriorityTree horTree = new PriorityTree();
 
     /**
-   * Les bornes maximales
+   * Les bornes maximales pour le window définit par l'utilisateur.
    */
     private int low, up, left, rigth;
+
 
     public BackEnd(File file){
         TreeCreate(file);

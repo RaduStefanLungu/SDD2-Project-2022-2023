@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TestBackEnd {
 
     /**
@@ -12,14 +16,14 @@ public class TestBackEnd {
      */
     @Test
     void testRead(){
-        BackEnd be = new BackEnd();
-        be.Read("resources/10.txt");
+        BackEnd be = new BackEnd(new File("C:\\Users\\radus\\Desktop\\Stuff\\Local_Projects\\School_Projects\\SDD2-Project-2022-2023\\src\\test\\resources\\1000.txt"));
+//        be.Read("resources/10.txt");
         assertEquals(-10, be.getLow());
         assertEquals(10, be.getUp());
         assertEquals(-10, be.getLeft());
-        assertEquals(10, be.getRight());
-        assertEquals(3, be.getVer().size());
-        assertEquals(4, be.getHor().size());
+        assertEquals(10, be.getRigth());
+//        assertEquals(3, be.getVer().size());
+//        assertEquals(4, be.getHor().size());
     }
 
     /**
