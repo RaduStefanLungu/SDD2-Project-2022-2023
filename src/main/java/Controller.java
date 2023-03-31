@@ -26,7 +26,7 @@ public class Controller {
     Stage MainStage;
 
     @FXML
-    Button BChose,ApplyButton;
+    Button BLaunch,BChose,ApplyButton;
 
     @FXML
     TextField TFFilePath,WindowDataX1,WindowDataX2,WindowDataY1,WindowDataY2;
@@ -43,6 +43,11 @@ public class Controller {
     @FXML
     Pane PaneDrawing;
 
+
+    @FXML
+    public void focusLaunchButton(){
+        BLaunch.requestFocus();
+    }
 
     @FXML
     public void LaunchHandler() throws IOException  {

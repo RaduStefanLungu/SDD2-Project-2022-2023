@@ -1,4 +1,6 @@
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -16,11 +18,26 @@ public class Controller2 {
     @FXML
     TextField WindowH,WindowW,GraphX,GraphY;
 
+    @FXML
+    TextArea ErrorsTextArea;
+
+    @FXML
+    public void AddWindowHandler(){
+        //add default window
+        if(!MainFX.WINDOW.setupVisualWindow(AnchorPanePlayground)){
+            ErrorsTextArea.clear();
+            ErrorsTextArea.setText(">A window already exists inside the Playgound !\nPlease do not click again.");
+        }
+    }
 
     @FXML
     public void applyHandler(){
-       //set up the window:
-        MainFX.WINDOW.setupVisualWindow(AnchorPanePlayground);
+
+        if(!AnchorPanePlayground.getChildren().contains(MainFX.WINDOW.getFxBody())){
+            ErrorsTextArea.clear();
+            ErrorsTextArea.setText(">The visual window had not been added.\nPlease press 'Add Window' first.");
+            return;
+        }
 
         // change the (x,y) inside the graph and update the segments.
         try{
@@ -30,9 +47,11 @@ public class Controller2 {
             var w = Integer.parseInt(WindowW.getText());
             var h = Integer.parseInt(WindowH.getText());
 
-            MainFX.WINDOW.updateValues(w,h,x,y);
+            MainFX.WINDOW.updateGxGy(x,y);
+            MainFX.WINDOW.updateWH(w,h);
 
         }catch (NumberFormatException e){
+            ErrorsTextArea.setText(">GraphX or/and GraphY input is wrong !");
             GraphX.promptTextProperty().set("Wrong input");
             GraphX.requestFocus();
             GraphY.promptTextProperty().set("Wrong input");
