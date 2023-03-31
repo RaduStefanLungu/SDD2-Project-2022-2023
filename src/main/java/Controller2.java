@@ -25,17 +25,20 @@ public class Controller2 {
     public void AddWindowHandler(){
         //add default window
         if(!MainFX.WINDOW.setupVisualWindow(AnchorPanePlayground)){
-            ErrorsTextArea.clear();
-            ErrorsTextArea.setText(">A window already exists inside the Playgound !\nPlease do not click again.");
+            showError("A window already exists inside the Playgound !\nPlease do not click again.");
         }
+    }
+
+    @FXML
+    public void ClearPromptHandler(){
+        ErrorsTextArea.clear();
     }
 
     @FXML
     public void applyHandler(){
 
         if(!AnchorPanePlayground.getChildren().contains(MainFX.WINDOW.getFxBody())){
-            ErrorsTextArea.clear();
-            ErrorsTextArea.setText(">The visual window had not been added.\nPlease press 'Add Window' first.");
+            showError("The visual window had not been added.\nPlease press 'Add Window' first.");
             return;
         }
 
@@ -47,20 +50,25 @@ public class Controller2 {
             var w = Integer.parseInt(WindowW.getText());
             var h = Integer.parseInt(WindowH.getText());
 
-            MainFX.WINDOW.updateGxGy(x,y);
-            MainFX.WINDOW.updateWH(w,h);
+            MainFX.WINDOW.updateGxGy(x,y);                      // this does update the query by itself
+            MainFX.WINDOW.updateWH(w,h);                        // this does update the query by itself
 
         }catch (NumberFormatException e){
-            ErrorsTextArea.setText(">GraphX or/and GraphY input is wrong !");
+            showError("GraphX or/and GraphY input is wrong !");
             GraphX.promptTextProperty().set("Wrong input");
             GraphX.requestFocus();
             GraphY.promptTextProperty().set("Wrong input");
 //            e.printStackTrace();
         }
-        MainFX.WINDOW.updateVisual();
+
 
     }
 
+
+    private void showError(String txt){
+        var oldText = ErrorsTextArea.getText();
+        ErrorsTextArea.setText(oldText+">"+txt+"\n");
+    }
 
 
 }
