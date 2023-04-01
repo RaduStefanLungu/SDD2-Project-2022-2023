@@ -146,14 +146,14 @@ public class BackEnd {
         Segment min = FindMin(list);
         list.remove(list.indexOf(min));
         if (list.size()>1){
-            int half = (int)list.size()/2;
+            int half = (int)(list.size()-1)/2;
             int mid = list.get(half).getCons();
             ArrayList<Segment> seg1 = new ArrayList<Segment>();
-            for (int i=0; i<half; i++){
+            for (int i=0; i<half+1; i++){
                 seg1.add(list.get(i));
             }
             ArrayList<Segment> seg2 = new ArrayList<Segment>();
-            for (int i=half; i<list.size(); i++){
+            for (int i=half+1; i<list.size(); i++){
                 seg2.add(list.get(i));
             }
             PriorityTree tree = new PriorityTree(min, mid, Tree(seg1), Tree(seg2));
@@ -180,8 +180,9 @@ public class BackEnd {
      * @return segment minimum
      */
     private Segment FindMin(ArrayList<Segment> list){
+        //System.out.println(list.size());
         Segment min = list.get(0);
-        for (int i=1; i<list.size(); i++){
+        for (int i=0; i<list.size(); i++){
             if(list.get(i).getDif1()<min.getDif1()) {
                 min = list.get(i);
             }
@@ -220,7 +221,7 @@ public class BackEnd {
                     QueryAnswer(tree.getLeft(), dif1, dif2, cons1, cons2);
                 }
                 if(tree.getMid()<=cons2 && tree.getType()!=1){
-                    QueryAnswer(tree.getRigth(), dif1, dif2, cons1, cons2);
+                    QueryAnswer(tree.getRight(), dif1, dif2, cons1, cons2);
                 }
             }
         }

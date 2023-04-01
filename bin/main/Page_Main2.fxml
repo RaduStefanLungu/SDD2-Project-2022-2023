@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="720.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller2">
+  <items>
+      <HBox prefHeight="144.0" prefWidth="1000.0" spacing="15.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Window W" />
+                        <TextField fx:id="WindowW" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Width" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Window H" />
+                        <TextField fx:id="WindowH" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Height" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="358.0" spacing="5.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Graph X" />
+                        <TextField fx:id="GraphX" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="X" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Graph Y" />
+                        <TextField fx:id="GraphY" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Y" />
+                     </children>
+                  </VBox>
+                  <Button mnemonicParsing="false" onAction="#applyHandler" prefHeight="25.0" prefWidth="100.0" text="Apply" />
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <children>
+                  <Button fx:id="AddWindowButton" mnemonicParsing="false" onAction="#AddWindowHandler" text="Add Window" />
+                  <Button fx:id="ClearPrompt" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#ClearPromptHandler" text="Clear Prompt" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefWidth="200.0">
+               <children>
+                  <Label text="Prompt" />
+                  <TextArea fx:id="ErrorsTextArea" editable="false" prefWidth="200.0" promptText="Error Messages" wrapText="true" />
+               </children>
+            </VBox>
+         </children></HBox>
+    <AnchorPane fx:id="AnchorPanePlayground" minHeight="0.0" minWidth="0.0" prefHeight="576.0" prefWidth="1000.0" />
+  </items>
+</SplitPane>

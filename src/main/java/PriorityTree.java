@@ -91,7 +91,7 @@ public class PriorityTree {
      * Getteur pour l'arbre du fils droit
      * @return l'arbre du fils droit
      */
-    public PriorityTree getRigth(){
+    public PriorityTree getRight(){
         return rigth;
     }
 

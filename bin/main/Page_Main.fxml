@@ -6,17 +6,18 @@
 
 <SplitPane dividerPositions="0.7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <Pane fx:id="PaneDrawing" layoutX="98.0" layoutY="99.0" prefHeight="500.0" prefWidth="500.0">
+               <children>
+                  <Group fx:id="GroupDrawing" layoutX="250.0" layoutY="250.0" />
+               </children>
+            </Pane>
+         </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
             <VBox fx:id="ConfigPanel" layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="260.0" spacing="10.0">
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="260.0" spacing="5.0">
-                     <children>
-                        <CheckBox fx:id="CBDefaultInput" mnemonicParsing="false" onAction="#CheckboxDefaultInputHandler" text="Default Input" />
-                        <CheckBox fx:id="CBCustomisedInput" mnemonicParsing="false" onAction="#CheckboxCustomisedInputHandler" text="Customised Input" />
-                        <CheckBox mnemonicParsing="false" text="N/A" />
-                     </children></VBox>
                   <VBox fx:id="ConfigPanelVHolder" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <VBox fx:id="DefaultInputPanel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -27,13 +28,13 @@
                                     <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
                                        <children>
                                           <Label text="x1" />
-                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                          <TextField fx:id="WindowDataX1" prefHeight="25.0" prefWidth="50.0" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
                                        <children>
                                           <Label text="y1" />
-                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                          <TextField fx:id="WindowDataY1" prefHeight="25.0" prefWidth="50.0" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -43,75 +44,25 @@
                                     <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
                                        <children>
                                           <Label text="x2" />
-                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                          <TextField fx:id="WindowDataX2" prefHeight="25.0" prefWidth="50.0" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
                                        <children>
                                           <Label text="y2" />
-                                          <TextField prefHeight="25.0" prefWidth="50.0" />
+                                          <TextField fx:id="WindowDataY2" prefHeight="25.0" prefWidth="50.0" />
                                        </children>
                                     </HBox>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox fx:id="CustomisedInputPanel" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <VBox alignment="CENTER">
-                                 <children>
-                                    <HBox alignment="CENTER" prefHeight="25.0" prefWidth="300.0">
-                                       <children>
-                                          <Label text="Window Size" />
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
-                                             <children>
-                                                <Label text="H" />
-                                                <TextField prefHeight="25.0" prefWidth="50.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
-                                             <children>
-                                                <Label text="W" />
-                                                <TextField prefHeight="25.0" prefWidth="50.0" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER">
-                                 <children>
-                                    <Label text="World Location" />
-                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="25.0">
-                                             <children>
-                                                <Label text="X" />
-                                                <TextField prefHeight="25.0" prefWidth="50.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
-                                             <children>
-                                                <Label text="Y" />
-                                                <TextField prefHeight="25.0" prefWidth="50.0" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="25.0">
                      <children>
-                        <Label text="Customisable 1" />
-                        <TextField />
+                        <Button fx:id="LeftMoveButton" mnemonicParsing="false" onAction="#LeftMoveButtonHandler" prefWidth="50.0" text="left" />
+                        <Button fx:id="RightMoveButton" layoutX="236.0" layoutY="13.0" mnemonicParsing="false" onAction="#RightMoveButtonHandler" prefWidth="50.0" text="right" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="60.0" prefHeight="50.0" spacing="25.0">
