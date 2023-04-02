@@ -33,7 +33,11 @@ public class BackEnd {
    */
     private int low, up, left, rigth;
 
-
+    /**
+     * Fonction appelée lors de la création de l'objet BackEnd
+     * Elle va simplement appeler TreeCreate() et envoyer une notification pour confirmer la création des arbres de priorité
+     * @param file fichier texte avec les bornes maximales et les segments verticaux et horizontaux
+     */
     public BackEnd(File file){
         TreeCreate(file);
         System.out.println("~ BackEnd has been successfully set.");
@@ -180,7 +184,6 @@ public class BackEnd {
      * @return segment minimum
      */
     private Segment FindMin(ArrayList<Segment> list){
-        //System.out.println(list.size());
         Segment min = list.get(0);
         for (int i=0; i<list.size(); i++){
             if(list.get(i).getDif1()<min.getDif1()) {
