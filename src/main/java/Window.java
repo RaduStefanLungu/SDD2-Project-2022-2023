@@ -3,7 +3,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,7 +130,7 @@ public class Window {
         // update segments from back-end
         System.out.println("Updating visuals");
         //TODO ...
-        ArrayList<Segment> realSegmentsList = MainFX.BACKEND.getAnswer();
+        ArrayList<Segment> realSegmentsList = TestMainApp.BACKEND.getAnswer();
         //make virtual lines :
         //TODO
 //        ArrayList<Line> virtualLinesList = createVirtualLines(extractLinesFromSegments(realSegmentsList),,);

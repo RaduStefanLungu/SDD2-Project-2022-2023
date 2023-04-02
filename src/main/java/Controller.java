@@ -53,19 +53,19 @@ public class Controller {
     public void LaunchHandler() throws IOException  {
         // Set the back-end
         try{
-            MainFX.BACKEND = new BackEnd(new File(TFFilePath.getText()));
-            MainFX.WINDOW = new Window();
+            TestMainApp.BACKEND = new BackEnd(new File(TFFilePath.getText()));
+            TestMainApp.WINDOW = new Window();
         }catch (Exception e){
             System.out.println(e);
         }
 
         // Set the front-end
         Parent parent = FXMLLoader.load(getClass().getResource("Page_Main2.fxml"));
-        Scene scene = new Scene(parent,MainFX.WIDTH,MainFX.HEIGHT);
+        Scene scene = new Scene(parent, TestMainApp.WIDTH, TestMainApp.HEIGHT);
 
-        MainStage.setTitle(MainFX.TITLE);
-        MainStage.setWidth(MainFX.WIDTH);
-        MainStage.setHeight(MainFX.HEIGHT);
+        MainStage.setTitle(TestMainApp.TITLE);
+        MainStage.setWidth(TestMainApp.WIDTH);
+        MainStage.setHeight(TestMainApp.HEIGHT);
         MainStage.setScene(scene);
         MainStage.show();
 
@@ -109,13 +109,13 @@ public class Controller {
 
 
         // Call Query from BackEnd
-        MainFX.BACKEND.Query(x1,x2,y1,y2);
+        TestMainApp.BACKEND.Query(x1,x2,y1,y2);
 
         //Apply to Front-End
 
 //        showLinesToGroup(MainFX.BACKEND.getAnswer(),GroupDrawing);
 
-        showLinesToPane(MainFX.BACKEND.getAnswer(),PaneDrawing);
+        showLinesToPane(TestMainApp.BACKEND.getAnswer(),PaneDrawing);
 
     }
 

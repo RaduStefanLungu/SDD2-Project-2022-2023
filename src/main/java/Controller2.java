@@ -1,13 +1,7 @@
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Controller2 {
 
@@ -24,7 +18,7 @@ public class Controller2 {
     @FXML
     public void AddWindowHandler(){
         //add default window
-        if(!MainFX.WINDOW.setupVisualWindow(AnchorPanePlayground)){
+        if(!TestMainApp.WINDOW.setupVisualWindow(AnchorPanePlayground)){
             showError("A window already exists inside the Playgound !\nPlease do not click again.");
         }
     }
@@ -37,7 +31,7 @@ public class Controller2 {
     @FXML
     public void applyHandler(){
 
-        if(!AnchorPanePlayground.getChildren().contains(MainFX.WINDOW.getFxBody())){
+        if(!AnchorPanePlayground.getChildren().contains(TestMainApp.WINDOW.getFxBody())){
             showError("The visual window had not been added.\nPlease press 'Add Window' first.");
             return;
         }
@@ -50,8 +44,8 @@ public class Controller2 {
             var w = Integer.parseInt(WindowW.getText());
             var h = Integer.parseInt(WindowH.getText());
 
-            MainFX.WINDOW.updateGxGy(x,y);                      // this does update the query by itself
-            MainFX.WINDOW.updateWH(w,h);                        // this does update the query by itself
+            TestMainApp.WINDOW.updateGxGy(x,y);                      // this does update the query by itself
+            TestMainApp.WINDOW.updateWH(w,h);                        // this does update the query by itself
 
         }catch (NumberFormatException e){
             showError("GraphX or/and GraphY input is wrong !");

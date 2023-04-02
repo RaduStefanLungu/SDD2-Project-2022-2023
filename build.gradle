@@ -26,4 +26,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = 'MainFX'
+mainClassName = 'TestMainApp'

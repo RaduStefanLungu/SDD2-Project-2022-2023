@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainFX extends Application {
+public class TestMainApp extends Application {
 
     public static int WIDTH = 1280;
     public static int HEIGHT = 720;
