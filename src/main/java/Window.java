@@ -67,6 +67,19 @@ public class Window {
     }
 
     /**
+     * Methode utilisée pour mettre à jour le query de segments en fonction des paramètres donnés.
+     * @param gx coordonnée x dans le graphique de segments
+     * @param gy coordonnée y dans le graphique de segments
+     * @param w largeur de la fenêtre de vision
+     * @param h hauteur de la fenêtre de vision
+     */
+    public void update(int gx,int gy,int w,int h){
+        this.updateWH(w,h);
+        this.updateGxGy(gx,gy);
+        this.updateVisual();
+    }
+
+    /**
      * Methode utilisée pour mettre à jour le Width et Height du window.
      * @param w width
      * @param h height
@@ -85,7 +98,7 @@ public class Window {
             updateBorders();
             updateResolution();
 
-            updateVisual();
+//            updateVisual();
         }
     }
 
@@ -108,7 +121,7 @@ public class Window {
         if(changedXY){
             updateVisualIndicator();
 
-            updateVisual();
+//            updateVisual();
         }
     }
 
@@ -129,11 +142,20 @@ public class Window {
     private void updateVisual(){
         // update segments from back-end
         System.out.println("Updating visuals");
-        //TODO ...
+
+        // clear screen and add default stuff
+        this.fxBody.getChildren().clear();
+        this.updateBorders();
+        this.addVisualIndicator(3,3);
+
         ArrayList<Segment> realSegmentsList = TestMainApp.BACKEND.getAnswer();
         //make virtual lines :
         //TODO
-//        ArrayList<Line> virtualLinesList = createVirtualLines(extractLinesFromSegments(realSegmentsList),,);
+        ArrayList<Line> virtualLinesList = createVirtualLines2(extractLinesFromSegments(realSegmentsList),this.gx,this.gy);
+//        System.out.println("Real Segment lists : \n"+virtualLinesList+"\n\n");
+
+        // add virtual lines to screen :
+        this.fxBody.getChildren().addAll(virtualLinesList);
     }
 
     private ArrayList<Line> extractLinesFromSegments(ArrayList<Segment> list){
@@ -168,6 +190,61 @@ public class Window {
         }
 
         return list;
+    }
+
+    /**
+     * Methode utilisée pour la creation des lines virtuels en rajoutant l'offset necessaire.
+     * @return Liste de lignes à rajouter au front-end.
+     */
+    private ArrayList<Line> createVirtualLines2(ArrayList<Line> realSegments ,int xOffset, int yOffset){
+        ArrayList<Line> list = new ArrayList<Line>();
+
+        for(int i = 0;i < realSegments.size(); i++){
+            Line realLine = realSegments.get(i);
+            Line virtualLine = new Line();
+
+            // fx behavior :
+            virtualLine.setOnMouseEntered(event -> {
+                virtualLine.setStrokeWidth(2 * virtualLine.getStrokeWidth());
+
+            });
+            virtualLine.setOnMouseExited(event -> {
+                virtualLine.setStrokeWidth(virtualLine.getStrokeWidth() / 2);
+            });
+
+            //copying the realLine data to the virtualLine
+            virtualLine.setStartX(realLine.getStartX());
+            virtualLine.setEndX(realLine.getEndX());
+            virtualLine.setStartY(realLine.getStartY());
+            virtualLine.setEndY(realLine.getEndY());
+            //shift the virtualLine
+            shift2(virtualLine,xOffset,yOffset);
+            //save the shifted line
+            list.add(virtualLine);
+        }
+
+        return list;
+    }
+
+    /**
+     * Methode utilisée pour translater une line d'une certaine valeur vers une certaine direction.
+     * @param line line a translater
+     * @param xOffset valeur à translater sur les axes de X
+     * @param yOffset valeur à translater sur les axes de Y
+     */
+    private void shift2(Line line,int xOffset,int yOffset){
+        //default values of begin/end of line
+        var x01 = line.getStartX();
+        var x11 = line.getEndX();
+        var y01 = line.getStartY();
+        var y11 = line.getEndY();
+
+        line.setStartX(x01 + xOffset);
+        line.setEndX(x11 + xOffset);
+
+        line.setStartY(y01 + yOffset);
+        line.setEndY(y11 + yOffset);
+
     }
 
     /**

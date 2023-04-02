@@ -44,8 +44,21 @@ public class Controller2 {
             var w = Integer.parseInt(WindowW.getText());
             var h = Integer.parseInt(WindowH.getText());
 
-            TestMainApp.WINDOW.updateGxGy(x,y);                      // this does update the query by itself
-            TestMainApp.WINDOW.updateWH(w,h);                        // this does update the query by itself
+            // Call Query from Back-End
+            int x1 = x;
+            int x2 = x+w;
+            int y1 = y;
+            int y2 = y+h;
+            //TODO PROBLEM HERE , y2 = 3000!!!!!!!!!!!!!
+            TestMainApp.BACKEND.Query(x,x+w,y,y+h);
+            System.out.println("x1 : "+x);
+            System.out.println("x2 : "+(x+w));
+            System.out.println("y1 : "+y);
+            System.out.println("y2 : "+(y+h));
+            System.out.println(TestMainApp.BACKEND.getAnswer());
+
+            // Apply Query to Front-End
+            TestMainApp.WINDOW.update(x,y,w,h);                      // this does update the query by itself
 
         }catch (NumberFormatException e){
             showError("GraphX or/and GraphY input is wrong !");
