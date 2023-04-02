@@ -18,7 +18,7 @@ public class TestBackEnd {
         assertEquals(-10, be.getLow());
         assertEquals(10, be.getUp());
         assertEquals(-10, be.getLeft());
-        assertEquals(10, be.getRigth());
+        assertEquals(10, be.getRight());
     }
     
     /**

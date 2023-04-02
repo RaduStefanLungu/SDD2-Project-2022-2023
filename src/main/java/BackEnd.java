@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -31,7 +30,7 @@ public class BackEnd {
     /**
    * Les bornes maximales pour le window définit par l'utilisateur.
    */
-    private int low, up, left, rigth;
+    private int low, up, left, right;
 
     /**
      * Fonction appelée lors de la création de l'objet BackEnd
@@ -40,7 +39,7 @@ public class BackEnd {
      */
     public BackEnd(File file){
         TreeCreate(file);
-        System.out.println("~ BackEnd has been successfully set.");
+        System.out.println("~> BackEnd has been successfully set.");
     }
 
     /**
@@ -69,7 +68,7 @@ public class BackEnd {
             low = (int) Float.parseFloat(first[0]);
             up = (int) Float.parseFloat(first[1]);
             left = (int) Float.parseFloat(first[2]);
-            rigth = (int) Float.parseFloat(first[3]);
+            right = (int) Float.parseFloat(first[3]);
             while (scanner.hasNextLine()){
                 String[] line = scanner.nextLine().split(" ");
                 int x = (int) Float.parseFloat(line[0]);
@@ -258,8 +257,8 @@ public class BackEnd {
      * Getteur pour la borne droite maximale
      * @return la borne droite maximale
      */
-    public int getRigth(){
-        return rigth;
+    public int getRight(){
+        return right;
     }
 
     /**

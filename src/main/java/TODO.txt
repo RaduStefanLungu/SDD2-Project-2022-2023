@@ -20,15 +20,15 @@
 DEMANDES PROF
 
 1. La classe contenant la méthode main, permettant de lancer votre
-  programme, doit être clairement identifiée par un nom commençant par Test.
+  programme, doit être clairement identifiée par un nom commençant par Test.                                        ~DONE~
 
 2. File Format :
-    a. 1ere ligne sera toujours la taille du window par DEFAULT : x1,y1 - x2,y2
-    b. chaque ligne du fichier (exclus la 1ere) sera une forme x y x' y' definissant les coord des segments.
+    a. 1ere ligne sera toujours la taille du plus grand window : x1,y1 - x2,y2                                      ~DONE~
+    b. chaque ligne du fichier (exclus la 1ere) sera une forme x y x' y' definissant les coord des segments.        ~DONE~
 
 3. Operations supportees :
     a. charger un ensemble de segments, c’est-à-dire lire un fichier au format adéquat et stocker les
-       données dans un arbre de recherche à priorité T ;
+       données dans un arbre de recherche à priorité T ;                                                            ~DONE~
     b. afficher cet ensemble de segments
     c. saisir une fenêtre (bornée complètement ou partiellement)
     d. afficher le résultat de l’application du windowing sur base de la fenêtre proposée en utilisant

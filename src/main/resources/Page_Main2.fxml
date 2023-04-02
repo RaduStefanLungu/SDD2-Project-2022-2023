@@ -7,34 +7,34 @@
   <items>
       <HBox prefHeight="144.0" prefWidth="1000.0" spacing="15.0">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Window W" />
-                        <TextField fx:id="WindowW" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Width" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Window H" />
-                        <TextField fx:id="WindowH" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Height" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="358.0" spacing="5.0">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="217.0" spacing="5.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label text="Graph X" />
-                        <TextField fx:id="GraphX" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="X" />
+                        <TextField fx:id="GraphX" alignment="CENTER" onKeyTyped="#CheckMinMaxX" prefHeight="25.0" prefWidth="50.0" promptText="X" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label text="Graph Y" />
-                        <TextField fx:id="GraphY" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Y" />
+                        <TextField fx:id="GraphY" alignment="CENTER" onKeyTyped="#CheckMinMaxY" prefHeight="25.0" prefWidth="50.0" promptText="Y" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="290.0" spacing="5.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Window W" />
+                        <TextField fx:id="WindowW" alignment="CENTER" onKeyTyped="#CheckWindowWInput" prefHeight="25.0" prefWidth="50.0" promptText="Width" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Window H" />
+                        <TextField fx:id="WindowH" alignment="CENTER" onKeyTyped="#CheckWindowHInput" prefHeight="25.0" prefWidth="50.0" promptText="Height" />
                      </children>
                   </VBox>
                   <Button mnemonicParsing="false" onAction="#applyHandler" prefHeight="25.0" prefWidth="100.0" text="Apply" />
