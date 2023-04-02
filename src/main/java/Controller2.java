@@ -136,6 +136,8 @@ public class Controller2 {
             int Wmax = rightBorder - GraphXValue;
             if(Wmax == 0)
                 Wmax = rightBorder - leftBorder;
+            else if(GraphXValue == rightBorder)
+                Wmax = 0;
             if(input > Wmax){
                 WindowW.setText(String.valueOf(Wmax));
             }
@@ -162,6 +164,8 @@ public class Controller2 {
             int Hmax = upBorder - GraphYValue;
             if(Hmax == 0 )
                 Hmax = upBorder - lowBorder;
+            else if(GraphYValue == lowBorder)
+                Hmax = 0;
             if(input > Hmax){
                 WindowH.setText(String.valueOf(Hmax));
             }
