@@ -11,9 +11,6 @@ import java.util.List;
 
 public class Window {
 
-    //TODO RAJOUTER UN CAP POUR LES BORNES MAXIMALES  BackEnd.getLow,getUp
-    //              --> l'appel a l'infit sera le fixe aux bornes maximales.
-
     /**
      * Coordonnées définissant la taille du window.
      */

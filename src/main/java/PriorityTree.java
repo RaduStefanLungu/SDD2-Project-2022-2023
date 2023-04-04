@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class PriorityTree {
 
     /**
@@ -19,7 +17,7 @@ public class PriorityTree {
     /**
      * Arbres des fils gauche et droit
      */
-    private PriorityTree left, rigth;
+    private PriorityTree left, right;
     
     /**
      * Création d'un arbre de priorité qui a un fils gauche et un fils droit
@@ -32,7 +30,7 @@ public class PriorityTree {
         root = seg;
         mid = m;
         left = tree1;
-        rigth = tree2;
+        right = tree2;
         type = 0;
     }
 
@@ -92,7 +90,7 @@ public class PriorityTree {
      * @return l'arbre du fils droit
      */
     public PriorityTree getRight(){
-        return rigth;
+        return right;
     }
 
     /**
