@@ -14,8 +14,8 @@
 
 4. Parcourir les arbres et afficher les segments du window choisit.         DONE
 
-5. Set the good bonderies for Width/Height on the Window.                   TODO
-6. Add movement of the window on key.up/down/left/right                     TODO
+5. Set the good bonderies for Width/Height on the Window.                   DONE
+6. Add movement of the window on key.up/down/left/right                     DONE
 
 
 ---

@@ -1,4 +1,6 @@
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -27,6 +29,21 @@ public class Window {
     private Label labelX1Y1,labelX2Y2;
     private ArrayList<Line> fxBodyBorders;
 
+    /**
+     * References vers les objets du controller pour pouvoir les mettre à jour.
+     */
+    private Label LabelX1,LabelY1,LabelX2,LabelY2;
+    /**
+     * References vers les objets du controller pour pouvoir les mettre à jour.
+     */
+    private Label NumberOfQueriedSegments,NumberOfViewedSegments;
+    /**
+     * References vers les objets du controller pour pouvoir les mettre à jour.
+     */
+    private TextField GraphX,GraphY;
+
+    private int movementDistance;
+
     private AnchorPane parent;
 
     public Window(){
@@ -36,6 +53,7 @@ public class Window {
         this.gy = 0;
 
         this.fxBody = new Pane();
+        setBodyBehavior();
         this.fxBodyBorders = createWindowBorders(Color.BLACK,this.width,this.height);             // window visual borders
         addVisualIndicator(3,3);                                                    // window visual position indicators
 
@@ -49,13 +67,23 @@ public class Window {
      * @param parent l'AnchorPane dont on veut rajouter le window
      * @return true si le window a pu être rajouté. False si le window existe déjà.
      */
-    public boolean setupVisualWindow(AnchorPane parent){
+    public boolean setupVisualWindow(AnchorPane parent,Label[] StageLabels,TextField[] UserGraphXYInput){
         //check if this already exists inside the given parent
         if(parent.getChildren().contains(this.fxBody)){
             return false;
         }
         //the parent doesn't have a Window:
         else{
+            this.LabelX1 = StageLabels[0];
+            this.LabelY1 = StageLabels[1];
+            this.LabelX2 = StageLabels[2];
+            this.LabelY2 = StageLabels[3];
+            this.NumberOfQueriedSegments = StageLabels[4];
+            this.NumberOfViewedSegments = StageLabels[5];
+
+            this.GraphX = UserGraphXYInput[0];
+            this.GraphY = UserGraphXYInput[1];
+
             parent.getChildren().add(this.fxBody);
             this.parent = parent;
             //visual customisation
@@ -73,10 +101,11 @@ public class Window {
      * @param w largeur de la fenêtre de vision
      * @param h hauteur de la fenêtre de vision
      */
-    public void update(int gx,int gy,int w,int h,Label NumberOfQueriedSegments,Label NumberOfViewedSegments,Label LabelX1,Label LabelY1,Label LabelX2,Label LabelY2){
+    public void update(int gx,int gy,int w,int h){
         this.updateWH(w,h);
         this.updateGxGy(gx,gy);
-        this.updateVisual(NumberOfQueriedSegments,NumberOfViewedSegments,LabelX1,LabelY1,LabelX2,LabelY2);
+        this.updateVisual();
+        this.updateVisualIndicator();
 
     }
 
@@ -109,23 +138,15 @@ public class Window {
      * @param gy y dans le graphique des segments
      */
     public void updateGxGy(int gx,int gy){
-        boolean changedXY = false;
 
         if(gx != this.gx){
             this.gx = gx;
-            changedXY = true;
         }
         if(gy != this.gy){
             this.gy = gy;
-            changedXY = true;
         }
-        if(changedXY){
-            updateVisualIndicator();
 
-//            updateVisual();
-        }
     }
-
 
     /**
      * Methode utilisée pour afficher les segments désirées du back-end au front-end.
@@ -140,9 +161,8 @@ public class Window {
      * On sur base de l'offset on va créer des segments virtuels à l'écran avec les mêmes composantes que le segment du back-end mais en retirant l'offset des axes.
      * Visuelement le window sera de la même taille mais il aura comme point le définissant (offsetX,offsetY)-(offsetX+width,offsetY+height) .
      */
-    private void updateVisual(Label NumberOfQueriedSegments,Label NumberOfViewedSegments,Label LabelX1,Label LabelY1,Label LabelX2,Label LabelY2){
+    private void updateVisual(){
         // update segments from back-end
-        System.out.println("Updating visuals");
 
         // clear screen and add default stuff
         this.fxBody.getChildren().clear();
@@ -150,15 +170,20 @@ public class Window {
         this.addVisualIndicator(3,3);
 
         ArrayList<Segment> realSegmentsList = TestMainApp.BACKEND.getAnswer();
-        NumberOfQueriedSegments.setText(String.valueOf(realSegmentsList.size()));
+        this.NumberOfQueriedSegments.setText(String.valueOf(realSegmentsList.size()));
 
         //make virtual lines :
-        ArrayList<Line> virtualLinesList = createVirtualLines2(extractLinesFromSegments(realSegmentsList),this.gx,this.gy,LabelX1,LabelY1,LabelX2,LabelY2);
-        NumberOfViewedSegments.setText(String.valueOf(virtualLinesList.size()));
+        ArrayList<Line> virtualLinesList = createVirtualLines(extractLinesFromSegments(realSegmentsList),this.gx,this.gy);
+        this.NumberOfViewedSegments.setText(String.valueOf(virtualLinesList.size()));
 
         // add virtual lines to screen :
         this.fxBody.getChildren().addAll(virtualLinesList);
     }
+
+    public void updateMovementDistance(int newDistance){
+        this.movementDistance = newDistance;
+    }
+
 
     private ArrayList<Line> extractLinesFromSegments(ArrayList<Segment> list){
         ArrayList<Line> l = new ArrayList<Line>();
@@ -174,31 +199,7 @@ public class Window {
      * Methode utilisée pour la creation des lines virtuels en rajoutant l'offset necessaire.
      * @return Liste de lignes à rajouter au front-end.
      */
-    private ArrayList<Line> createVirtualLines(ArrayList<Line> realSegments ,OffsetDirections direction,int offset){
-        ArrayList<Line> list = new ArrayList<Line>();
-
-        for(int i = 0;i < realSegments.size(); i++){
-            Line realLine = realSegments.get(i);
-            Line virtualLine = new Line();
-            //copying the realLine data to the virtualLine
-            virtualLine.setStartX(realLine.getStartX());
-            virtualLine.setEndX(realLine.getEndY());
-            virtualLine.setStartY(realLine.getStartY());
-            virtualLine.setEndY(realLine.getEndY());
-            //shift the virtualLine
-            shift(virtualLine,direction,offset);
-            //save the shifted line
-            list.add(virtualLine);
-        }
-
-        return list;
-    }
-
-    /**
-     * Methode utilisée pour la creation des lines virtuels en rajoutant l'offset necessaire.
-     * @return Liste de lignes à rajouter au front-end.
-     */
-    private ArrayList<Line> createVirtualLines2(ArrayList<Line> realSegments ,int xOffset, int yOffset,Label LabelX1,Label LabelY1,Label LabelX2,Label LabelY2){
+    private ArrayList<Line> createVirtualLines(ArrayList<Line> realSegments , int xOffset, int yOffset){
         ArrayList<Line> list = new ArrayList<Line>();
 
         for(int i = 0;i < realSegments.size(); i++){
@@ -210,19 +211,18 @@ public class Window {
             // fx behavior :
             virtualLine.setOnMouseEntered(event -> {
                 virtualLine.setStrokeWidth(5 * virtualLine.getStrokeWidth());
-                System.out.println("Segment at : " + realLine.getStartX()+","+realLine.getStartY() + "-->" + realLine.getEndX()+","+realLine.getEndY());
-                LabelX1.setText(String.valueOf(virtualLine.getStartX()));
-                LabelY1.setText(String.valueOf(virtualLine.getStartY()));
-                LabelX2.setText(String.valueOf(virtualLine.getEndX()));
-                LabelY2.setText(String.valueOf(virtualLine.getEndY()));
+                this.LabelX1.setText(String.valueOf(realLine.getStartX()));
+                this.LabelY1.setText(String.valueOf(realLine.getStartY()));
+                this.LabelX2.setText(String.valueOf(realLine.getEndX()));
+                this.LabelY2.setText(String.valueOf(realLine.getEndY()));
 
             });
             virtualLine.setOnMouseExited(event -> {
                 virtualLine.setStrokeWidth(virtualLine.getStrokeWidth() / 5);
-                LabelX1.setText("0");
-                LabelY1.setText("0");
-                LabelX2.setText("0");
-                LabelY2.setText("0");
+                this.LabelX1.setText("0");
+                this.LabelY1.setText("0");
+                this.LabelX2.setText("0");
+                this.LabelY2.setText("0");
             });
 
             //copying the realLine data to the virtualLine
@@ -231,7 +231,7 @@ public class Window {
             virtualLine.setStartY( realLine.getStartY());        //reverse the Y axes to fit the stardart screen
             virtualLine.setEndY( realLine.getEndY());            //reverse the Y axes to fit the stardart screen
             //shift the virtualLine
-            shift2(virtualLine,xOffset,yOffset);
+            shift(virtualLine,xOffset,yOffset);
             //save the shifted line
             list.add(virtualLine);
         }
@@ -245,7 +245,7 @@ public class Window {
      * @param xOffset valeur à translater sur les axes de X
      * @param yOffset valeur à translater sur les axes de Y
      */
-    private void shift2(Line line,int xOffset,int yOffset){
+    private void shift(Line line, int xOffset, int yOffset){
         //default values of begin/end of line
         var x01 = line.getStartX();
         var x11 = line.getEndX();
@@ -261,55 +261,12 @@ public class Window {
     }
 
     /**
-     * Methode utilisée pour translater une line d'une certaine valeur vers une certaine direction.
-     * @param line line a translater
-     * @param direction direction où on veut translater
-     * @param offset la distance de translation
-     */
-    private void shift(Line line,OffsetDirections direction,int offset){
-        //default values of begin/end of line
-        var x01 = line.getStartX();
-        var x11 = line.getEndX();
-        var y01 = line.getStartY();
-        var y11 = line.getEndY();
-
-        // shifting :
-        switch (direction){
-            case DOWN :
-                line.setStartX(x01);
-                line.setEndX(x11);
-                line.setStartY(y01 + offset);
-                line.setEndY(y01 + offset);
-                break;
-            case UP :
-                line.setStartX(x01);
-                line.setEndX(x11);
-                line.setStartY(y01 - offset);
-                line.setEndY(y01 - offset);
-                break;
-            case LEFT:
-                line.setStartX(x01 - offset);
-                line.setEndX(x11 - offset);
-                line.setStartY(y01);
-                line.setEndY(y11);
-                break;
-            case RIGHT:
-                line.setStartX(x01 + offset);
-                line.setEndX(x11 + offset);
-                line.setStartY(y01);
-                line.setEndY(y11);
-                break;
-
-        }
-    }
-
-
-    /**
      * Methode utilisée pour la mise à jour de l'indicateur visuel pour le point (0,0) du window
      * N.B. : Il faut appeller cette methode à chaque fois qu'on change le paramètre gx,gy
      */
     private void updateVisualIndicator(){
         this.labelX1Y1.setText("("+this.gx+","+this.gy+")");
+        this.labelX2Y2.setText("("+(this.gx + this.width)+","+(this.gy + this.height)+")");
     }
 
     private void updateBorders(){
@@ -420,6 +377,62 @@ public class Window {
         }
     }
 
+    private void setBodyBehavior(){
+        this.fxBody.onKeyPressedProperty().set(event -> {
+            KeyCode pressedKey = event.getCode();
+
+            //update back-end
+            int x1 = this.gx;
+            int x2 = this.gx+this.width;
+            int y1 = this.gy;
+            int y2 = this.gy+this.height;
+
+            if(x2 > TestMainApp.BACKEND.getRight())
+                x2 = TestMainApp.BACKEND.getRight();
+            if(y2 < TestMainApp.BACKEND.getLow())
+                y2 = TestMainApp.BACKEND.getLow();
+
+            switch (pressedKey){
+                case Z:
+
+                    y1 += movementDistance;
+                    y2 += movementDistance;
+
+                    TestMainApp.BACKEND.Query(x1,x2,y1,y2);
+                    //update front-end
+                    update(this.gx,this.gy+movementDistance,this.width,this.height);
+                    break;
+                case S:
+
+                    y1 -= movementDistance;
+                    y2 -= movementDistance;
+
+                    TestMainApp.BACKEND.Query(x1,x2,y1,y2);
+                    //update front-end
+                    update(this.gx,this.gy-movementDistance,this.width,this.height);
+                    break;
+                case Q:
+
+                    x1 -= movementDistance;
+                    x2 -= movementDistance;
+
+                    TestMainApp.BACKEND.Query(x1,x2,y1,y2);
+                    //update front-end
+                    update(this.gx-movementDistance,this.gy,this.width,this.height);
+                    break;
+                case D:
+
+                    x1 += movementDistance;
+                    x2 += movementDistance;
+
+                    TestMainApp.BACKEND.Query(x1,x2,y1,y2);
+                    //update front-end
+                    update(this.gx+movementDistance,this.gy,this.width,this.height);
+                    break;
+            }
+            this.fxBody.requestFocus();
+        });
+    }
 
     public Pane getFxBody() {
         return fxBody;
