@@ -1,4 +1,6 @@
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -14,6 +16,9 @@ public class Controller2 {
 
     @FXML
     TextArea ErrorsTextArea;
+
+    @FXML
+    Label NumberOfQueriedSegments,NumberOfViewedSegments,LabelX1,LabelY1,LabelX2,LabelY2;
 
     @FXML
     public void AddWindowHandler(){
@@ -49,16 +54,17 @@ public class Controller2 {
             int x2 = x+w;
             int y1 = y;
             int y2 = y+h;
-            //TODO PROBLEM HERE , y2 = 3000!!!!!!!!!!!!!
-            TestMainApp.BACKEND.Query(x,x+w,y,y+h);
-            System.out.println("x1 : "+x);
-            System.out.println("x2 : "+(x+w));
-            System.out.println("y1 : "+y);
-            System.out.println("y2 : "+(y+h));
-            System.out.println(TestMainApp.BACKEND.getAnswer());
 
+            if(x2 > TestMainApp.BACKEND.getRight())
+                x2 = TestMainApp.BACKEND.getRight();
+            if(y2 < TestMainApp.BACKEND.getLow())
+                y2 = TestMainApp.BACKEND.getLow();
+
+            TestMainApp.BACKEND.Query(x1,x2,y1,y2);
+            NumberOfQueriedSegments.setText(String.valueOf(TestMainApp.BACKEND.getAnswer().size()));
             // Apply Query to Front-End
-            TestMainApp.WINDOW.update(x,y,w,h);                      // this does update the query by itself
+            TestMainApp.WINDOW.update(x,y,w,h,NumberOfQueriedSegments,NumberOfViewedSegments,LabelX1,LabelY1,LabelX2,LabelY2);                      // this does update the query by itself
+
 
         }catch (NumberFormatException e){
             showError("GraphX or/and GraphY input is wrong !");
@@ -131,6 +137,11 @@ public class Controller2 {
     @FXML
     public void CheckWindowHInput(){
         CheckWindowHeightMax();
+    }
+
+    @FXML
+    public void MovementHandler(){
+        //TODO
     }
 
     /**

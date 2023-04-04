@@ -2,6 +2,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Window {
     private int gx,gy;
 
     private Pane fxBody;
-    private Label labelXY;
+    private Label labelX1Y1,labelX2Y2;
     private ArrayList<Line> fxBodyBorders;
 
     private AnchorPane parent;
@@ -38,7 +39,7 @@ public class Window {
         this.fxBodyBorders = createWindowBorders(Color.BLACK,this.width,this.height);             // window visual borders
         addVisualIndicator(3,3);                                                    // window visual position indicators
 
-        updateVisual();                                                                           // bring the segments from the back-end to front-end
+//        updateVisual();                                                                           // bring the segments from the back-end to front-end
 
     }
 
@@ -61,7 +62,6 @@ public class Window {
             updateResolution();
             updateBorders();
             //add segments from the back-end to the front-end
-            updateVisual();
             return true;
         }
     }
@@ -73,10 +73,11 @@ public class Window {
      * @param w largeur de la fenêtre de vision
      * @param h hauteur de la fenêtre de vision
      */
-    public void update(int gx,int gy,int w,int h){
+    public void update(int gx,int gy,int w,int h,Label NumberOfQueriedSegments,Label NumberOfViewedSegments,Label LabelX1,Label LabelY1,Label LabelX2,Label LabelY2){
         this.updateWH(w,h);
         this.updateGxGy(gx,gy);
-        this.updateVisual();
+        this.updateVisual(NumberOfQueriedSegments,NumberOfViewedSegments,LabelX1,LabelY1,LabelX2,LabelY2);
+
     }
 
     /**
@@ -139,7 +140,7 @@ public class Window {
      * On sur base de l'offset on va créer des segments virtuels à l'écran avec les mêmes composantes que le segment du back-end mais en retirant l'offset des axes.
      * Visuelement le window sera de la même taille mais il aura comme point le définissant (offsetX,offsetY)-(offsetX+width,offsetY+height) .
      */
-    private void updateVisual(){
+    private void updateVisual(Label NumberOfQueriedSegments,Label NumberOfViewedSegments,Label LabelX1,Label LabelY1,Label LabelX2,Label LabelY2){
         // update segments from back-end
         System.out.println("Updating visuals");
 
@@ -149,10 +150,11 @@ public class Window {
         this.addVisualIndicator(3,3);
 
         ArrayList<Segment> realSegmentsList = TestMainApp.BACKEND.getAnswer();
+        NumberOfQueriedSegments.setText(String.valueOf(realSegmentsList.size()));
+
         //make virtual lines :
-        //TODO
-        ArrayList<Line> virtualLinesList = createVirtualLines2(extractLinesFromSegments(realSegmentsList),this.gx,this.gy);
-//        System.out.println("Real Segment lists : \n"+virtualLinesList+"\n\n");
+        ArrayList<Line> virtualLinesList = createVirtualLines2(extractLinesFromSegments(realSegmentsList),this.gx,this.gy,LabelX1,LabelY1,LabelX2,LabelY2);
+        NumberOfViewedSegments.setText(String.valueOf(virtualLinesList.size()));
 
         // add virtual lines to screen :
         this.fxBody.getChildren().addAll(virtualLinesList);
@@ -196,27 +198,38 @@ public class Window {
      * Methode utilisée pour la creation des lines virtuels en rajoutant l'offset necessaire.
      * @return Liste de lignes à rajouter au front-end.
      */
-    private ArrayList<Line> createVirtualLines2(ArrayList<Line> realSegments ,int xOffset, int yOffset){
+    private ArrayList<Line> createVirtualLines2(ArrayList<Line> realSegments ,int xOffset, int yOffset,Label LabelX1,Label LabelY1,Label LabelX2,Label LabelY2){
         ArrayList<Line> list = new ArrayList<Line>();
 
         for(int i = 0;i < realSegments.size(); i++){
             Line realLine = realSegments.get(i);
             Line virtualLine = new Line();
+            virtualLine.setStrokeWidth(1.5);
+            virtualLine.setStroke(realLine.getStroke());
 
             // fx behavior :
             virtualLine.setOnMouseEntered(event -> {
-                virtualLine.setStrokeWidth(2 * virtualLine.getStrokeWidth());
+                virtualLine.setStrokeWidth(5 * virtualLine.getStrokeWidth());
+                System.out.println("Segment at : " + realLine.getStartX()+","+realLine.getStartY() + "-->" + realLine.getEndX()+","+realLine.getEndY());
+                LabelX1.setText(String.valueOf(virtualLine.getStartX()));
+                LabelY1.setText(String.valueOf(virtualLine.getStartY()));
+                LabelX2.setText(String.valueOf(virtualLine.getEndX()));
+                LabelY2.setText(String.valueOf(virtualLine.getEndY()));
 
             });
             virtualLine.setOnMouseExited(event -> {
-                virtualLine.setStrokeWidth(virtualLine.getStrokeWidth() / 2);
+                virtualLine.setStrokeWidth(virtualLine.getStrokeWidth() / 5);
+                LabelX1.setText("0");
+                LabelY1.setText("0");
+                LabelX2.setText("0");
+                LabelY2.setText("0");
             });
 
             //copying the realLine data to the virtualLine
             virtualLine.setStartX(realLine.getStartX());
             virtualLine.setEndX(realLine.getEndX());
-            virtualLine.setStartY(realLine.getStartY());
-            virtualLine.setEndY(realLine.getEndY());
+            virtualLine.setStartY( realLine.getStartY());        //reverse the Y axes to fit the stardart screen
+            virtualLine.setEndY( realLine.getEndY());            //reverse the Y axes to fit the stardart screen
             //shift the virtualLine
             shift2(virtualLine,xOffset,yOffset);
             //save the shifted line
@@ -239,11 +252,11 @@ public class Window {
         var y01 = line.getStartY();
         var y11 = line.getEndY();
 
-        line.setStartX(x01 + xOffset);
-        line.setEndX(x11 + xOffset);
+        line.setStartX(x01 - xOffset);
+        line.setEndX(x11 - xOffset);
 
-        line.setStartY(y01 + yOffset);
-        line.setEndY(y11 + yOffset);
+        line.setStartY(y01 - yOffset);
+        line.setEndY(y11 - yOffset);
 
     }
 
@@ -296,7 +309,7 @@ public class Window {
      * N.B. : Il faut appeller cette methode à chaque fois qu'on change le paramètre gx,gy
      */
     private void updateVisualIndicator(){
-        this.labelXY.setText("("+this.gx+","+this.gy+")");
+        this.labelX1Y1.setText("("+this.gx+","+this.gy+")");
     }
 
     private void updateBorders(){
@@ -326,10 +339,20 @@ public class Window {
      * @param layoutY distance sur l'axe y dans le parent
      */
     private void addVisualIndicator(double layoutX,double layoutY){
-        this.labelXY = new Label("("+this.gx+","+this.gy+")");
-        this.labelXY.setLayoutX(layoutX);
-        this.labelXY.setLayoutY(layoutY);
-        this.labelXY.setTextFill(Color.DARKRED);
+        this.labelX1Y1 = new Label("("+this.gx+","+this.gy+")");
+        this.labelX1Y1.setLayoutX(layoutX);
+        this.labelX1Y1.setLayoutY(layoutY);
+        this.labelX1Y1.setTextFill(Color.DARKRED);
+        this.labelX1Y1.setFont(new Font(this.labelX1Y1.getFont().getSize()*1.25));
+
+        int x2 = this.width;
+        int y2 = this.height;
+
+        this.labelX2Y2 = new Label("("+x2+","+y2+")");
+        this.labelX2Y2.setLayoutX(x2 + layoutX);
+        this.labelX2Y2.setLayoutY(y2 + layoutY);
+        this.labelX2Y2.setTextFill(Color.DARKRED);
+        this.labelX2Y2.setFont(new Font(this.labelX2Y2.getFont().getSize()*1.25));
 
         Line ooDot = new Line();
         ooDot.setStartX(0);
@@ -339,7 +362,15 @@ public class Window {
         ooDot.setStroke(Color.DARKRED);
         ooDot.setStrokeWidth(5);
 
-        this.fxBody.getChildren().addAll(labelXY,ooDot);
+        Line ooDot2 = new Line();
+        ooDot2.setStartX(x2);
+        ooDot2.setEndX(x2);
+        ooDot2.setStartY(y2);
+        ooDot2.setEndY(y2);
+        ooDot2.setStroke(Color.DARKRED);
+        ooDot2.setStrokeWidth(5);
+
+        this.fxBody.getChildren().addAll(labelX1Y1,labelX2Y2,ooDot,ooDot2);
     }
 
     private ArrayList<Line> createWindowBorders(Color color, int w, int h){
@@ -388,6 +419,7 @@ public class Window {
             this.fxBody.getChildren().remove(oldBorders.get(i));
         }
     }
+
 
     public Pane getFxBody() {
         return fxBody;

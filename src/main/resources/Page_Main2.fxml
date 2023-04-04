@@ -3,53 +3,101 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="720.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller2">
+<SplitPane dividerPositions="0.2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#MovementHandler" orientation="VERTICAL" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller2">
   <items>
       <HBox prefHeight="144.0" prefWidth="1000.0" spacing="15.0">
          <children>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="217.0" spacing="5.0">
+            <HBox prefHeight="212.0" prefWidth="618.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                      <children>
-                        <Label text="Graph X" />
-                        <TextField fx:id="GraphX" alignment="CENTER" onKeyTyped="#CheckMinMaxX" prefHeight="25.0" prefWidth="50.0" promptText="X" />
+                        <Button fx:id="AddWindowButton" mnemonicParsing="false" onAction="#AddWindowHandler" text="Add Window" />
+                        <Button fx:id="ClearPrompt" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#ClearPromptHandler" text="Clear Prompt" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <HBox alignment="CENTER" prefHeight="69.0" prefWidth="217.0" spacing="5.0">
                      <children>
-                        <Label text="Graph Y" />
-                        <TextField fx:id="GraphY" alignment="CENTER" onKeyTyped="#CheckMinMaxY" prefHeight="25.0" prefWidth="50.0" promptText="Y" />
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Graph X" />
+                              <TextField fx:id="GraphX" alignment="CENTER" onKeyTyped="#CheckMinMaxX" prefHeight="25.0" prefWidth="50.0" promptText="X" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Graph Y" />
+                              <TextField fx:id="GraphY" alignment="CENTER" onKeyTyped="#CheckMinMaxY" prefHeight="25.0" prefWidth="50.0" promptText="Y" />
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="69.0" prefWidth="290.0" spacing="5.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Window W" />
+                              <TextField fx:id="WindowW" alignment="CENTER" onKeyTyped="#CheckWindowWInput" prefHeight="25.0" prefWidth="50.0" promptText="Width" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Window H" />
+                              <TextField fx:id="WindowH" alignment="CENTER" onKeyTyped="#CheckWindowHInput" prefHeight="25.0" prefWidth="50.0" promptText="Height" />
+                           </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#applyHandler" prefHeight="25.0" prefWidth="100.0" text="Apply" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="290.0" spacing="5.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Window W" />
-                        <TextField fx:id="WindowW" alignment="CENTER" onKeyTyped="#CheckWindowWInput" prefHeight="25.0" prefWidth="50.0" promptText="Width" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Window H" />
-                        <TextField fx:id="WindowH" alignment="CENTER" onKeyTyped="#CheckWindowHInput" prefHeight="25.0" prefWidth="50.0" promptText="Height" />
-                     </children>
-                  </VBox>
-                  <Button mnemonicParsing="false" onAction="#applyHandler" prefHeight="25.0" prefWidth="100.0" text="Apply" />
-               </children>
-            </HBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-               <children>
-                  <Button fx:id="AddWindowButton" mnemonicParsing="false" onAction="#AddWindowHandler" text="Add Window" />
-                  <Button fx:id="ClearPrompt" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#ClearPromptHandler" text="Clear Prompt" />
-               </children>
-            </VBox>
             <VBox alignment="CENTER" prefWidth="200.0">
                <children>
                   <Label text="Prompt" />
-                  <TextArea fx:id="ErrorsTextArea" editable="false" prefWidth="200.0" promptText="Error Messages" wrapText="true" />
+                  <TextArea fx:id="ErrorsTextArea" editable="false" prefHeight="91.0" prefWidth="200.0" promptText="Error Messages" wrapText="true" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="141.0" prefWidth="187.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="149.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="28.0" prefWidth="71.0">
+                           <children>
+                              <Label text="(x1,y1)" />
+                              <HBox alignment="CENTER" prefHeight="19.0" prefWidth="71.0">
+                                 <children>
+                                    <Label fx:id="LabelX1" text="0" />
+                                    <Label text=" , " />
+                                    <Label fx:id="LabelY1" text="0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="28.0" prefWidth="71.0">
+                           <children>
+                              <Label text="(x2,y2)" />
+                              <HBox alignment="CENTER" prefHeight="19.0" prefWidth="71.0">
+                                 <children>
+                                    <Label fx:id="LabelX2" text="0" />
+                                    <Label text=" , " />
+                                    <Label fx:id="LabelY2" text="0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label prefHeight="35.0" prefWidth="149.0" text="Number of Queried Segments : " textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="NumberOfQueriedSegments" text="#_of_segments" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="44.0" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label prefHeight="35.0" prefWidth="149.0" text="Number of Viewed Segments : " textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="NumberOfViewedSegments" text="#_of_segments" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children></HBox>
