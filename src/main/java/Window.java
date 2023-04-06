@@ -111,7 +111,7 @@ public class Window {
      * @param w width
      * @param h height
      */
-    public void updateWH(int w, int h){
+    private void updateWH(int w, int h){
         boolean changedWH = false;
         if(w != this.width){
             this.width = w;
@@ -134,7 +134,7 @@ public class Window {
      * @param gx x dans le graphique des segments
      * @param gy y dans le graphique des segments
      */
-    public void updateGxGy(int gx,int gy){
+    private void updateGxGy(int gx,int gy){
 
         if(gx != this.gx){
             this.gx = gx;
@@ -177,9 +177,6 @@ public class Window {
         this.fxBody.getChildren().addAll(virtualLinesList);
     }
 
-    public void updateMovementDistance(int newDistance){
-        this.movementDistance = newDistance;
-    }
 
 
     private ArrayList<Line> extractLinesFromSegments(ArrayList<Segment> list){
@@ -452,6 +449,10 @@ public class Window {
 
     public int getGy() {
         return gy;
+    }
+
+    public void updateMovementDistance(int newDistance){
+        this.movementDistance = newDistance;
     }
 
 }
