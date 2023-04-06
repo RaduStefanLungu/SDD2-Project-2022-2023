@@ -427,6 +427,9 @@ public class Window {
                     update(this.gx+movementDistance,this.gy,this.width,this.height);
                     break;
             }
+            //update the GraphX,GraphY
+            this.GraphX.setText(String.valueOf(this.gx));
+            this.GraphY.setText(String.valueOf(this.gy));
             this.fxBody.requestFocus();
         });
     }

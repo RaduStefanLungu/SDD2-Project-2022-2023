@@ -29,7 +29,7 @@
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                         <children>
                             <Label text="Data file path: " />
-                            <TextField fx:id="TFFilePath" text="C:\Users\radus\Desktop\Stuff\School\BAC 3\q1\SSD 2\projet\fichiers test\1000.txt" />
+                            <TextField fx:id="TFFilePath" />
                             <Button fx:id="BChose" mnemonicParsing="false" onAction="#ChoseFile" text="..." />
                         </children>
                     </HBox>

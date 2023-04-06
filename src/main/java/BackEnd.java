@@ -21,11 +21,11 @@ public class BackEnd {
     /**
    * L'arbre de priorité des segments verticaux
    */
-    PriorityTree verTree = new PriorityTree();
+    private PriorityTree verTree = new PriorityTree();
     /**
    * L'arbre de priorité des segments horizontaux
    */
-    PriorityTree horTree = new PriorityTree();
+    private PriorityTree horTree = new PriorityTree();
 
     /**
    * Les bornes maximales pour le window définit par l'utilisateur.
